@@ -1,0 +1,13 @@
+url,unique_views,total_views
+home,3,11
+news,3,5
+events,3,10
+events/1,1,2
+events/2,1,1
+news/1,1,1
+news/2,1,2
+news/3,2,2
+events/3,1,1
+events/4,1,1
+news/4,1,1
+news/5,1,2

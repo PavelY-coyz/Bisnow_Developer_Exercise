@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\TrackWebsiteViewSummary',
+        'App\Console\Commands\TrackWebsiteViewEvents',
+        'App\Console\Commands\TrackWebsiteViewNews',
     ];
 
     /**
@@ -24,8 +26,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        //setup a cron to run this.
+
+        //At the start of each day update the tracking summary table with data
+        //from the previous day.
+        $schedule->command('track:events')->dailyAt('00:00');
+        $schedule->command('track:news')->dailyAt('00:00');
+        $schedule->command('track:summary')->dailyAt('00:00');
+
+        //For testing todays activity. Variables inside each command class need to be altered too
+        //After altering each command file run php artisan schedule:run to test
+        //$schedule->command('track:events')->everyMinute();
+        //$schedule->command('track:news')->everyMinute();
+        //$schedule->command('track:summary')->everyMinute();
     }
 
     /**

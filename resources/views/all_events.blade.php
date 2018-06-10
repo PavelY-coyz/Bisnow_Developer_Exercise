@@ -3,13 +3,15 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
+              <?php
+                  foreach($events as $event) {
+              ?>
+                <div class="panel-heading"><a href="/events/{{ $event->id }}">{{ $event->name }}</a></div>
                 <div class="panel-body">
-                    Home page for the Bisnow developer exercise
                 </div>
+              <?php } ?>
             </div>
         </div>
     </div>
@@ -23,9 +25,9 @@ function trackVisit() {
       async: true,
       cache: false,
       data: ({
-          'url' : 'home',
+          'url' : 'events',
           'item_id' : '{{ isset($item_id) ? $item_id : '0' }}' ,
-          'item_type' : 'home'
+          'item_type' : '{{ $item_type }}'
           <?php //we dont need to send anything else through ajax. Everything else will be in the session/request ?>
       }),
       success: function(result) {
@@ -41,4 +43,5 @@ function trackVisit() {
 }
 document.ready=trackVisit();
 </script>
+
 @endsection

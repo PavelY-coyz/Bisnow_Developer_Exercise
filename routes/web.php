@@ -11,8 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
+Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+//news routes
+Route::get('news', 'NewsController@index');
+Route::get('news/{id}', 'NewsController@renderNewsStory');
+
+//events routes
+Route::get('events', 'EventsController@index');
+Route::get('events/{id}', 'EventsController@renderEventDetails');
+
+//tracking routes
+Route::get('tracking', 'TrackingController@index');
+
+//can just have one route since we use the same function
+Route::post('/trackVisit', 'TrackingController@trackVisit');
+Route::post('events/trackVisit', 'TrackingController@trackVisit');
+Route::post('news/trackVisit', 'TrackingController@trackVisit');
+
+Route::get('tracking/csvSummary', 'TrackingController@exportCSV');
